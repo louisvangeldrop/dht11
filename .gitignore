@@ -1,5 +1,5 @@
 *.png
 .uf2
-*.json
+tsconfig.json
 *.*.extends
 .vscode/
