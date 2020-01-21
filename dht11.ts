@@ -39,7 +39,7 @@ class DHT11 {
         let ht = this;
         this.pin.digitalWrite(false);
         pause(18);
-        this.pin.pin.setPull(PinPullMode.PullUp); // force pin state to output
+        this.pin.setPull(PinPullMode.PullUp); // force pin state to output
 
         this.pin.setWatch(
             (t: any) => {
