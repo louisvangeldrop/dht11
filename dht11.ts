@@ -30,52 +30,52 @@ class DHT11 {
         });
     };
 
-    // public read(
-    //     cb: (data: { raw: number[]; rh: number; t: number; err: boolean }) => void,
-    //     n = 10
-    // ) {
-    //     let d: number[];
-    //     let data: string = "";
-    //     let ht = this;
-    //     this.pin.digitalWrite(false);
-    //     pause(18);
-    //     this.pin.pin.setPull(PinPullMode.PullUp); // force pin state to output
+    public read(
+        cb: (data: { raw: number[]; rh: number; t: number; err: boolean }) => void,
+        n = 10
+    ) {
+        let d: number[];
+        let data: string = "";
+        let ht = this;
+        this.pin.digitalWrite(false);
+        pause(18);
+        this.pin.pin.setPull(PinPullMode.PullUp); // force pin state to output
 
-    //     this.pin.setWatch(
-    //         (t: any) => {
-    //             d.push(t > 0.00005 * 1e6 ? 1 : 0);
-    //             console.log("CB Called");
-    //         }
-    //     );
+        this.pin.setWatch(
+            (t: any) => {
+                d.push(t > 0.00005 * 1e6 ? 1 : 0);
+                console.log("CB Called");
+            }
+        );
 
-    //     /* this.setTimeout(() => {
-    //                     this.pin.setPull(PinPullMode.PullUp)
-    //                 }, 1); */
-    //     this.setTimeout(() => {
-    //         this.pin.clearWatch(); // delete this.watch;
-    //         let cks =
-    //             this.decode(d.slice(2, 8)) +
-    //             this.decode(d.slice(10, 8)) +
-    //             this.decode(d.slice(18, 8)) +
-    //             this.decode(d.slice(26, 8));
-    //         if (cks && (cks & 0xff) == this.decode(d.slice(34, 8))) {
-    //             cb({
-    //                 raw: d,
-    //                 rh: this.decode(d.slice(2, 8)),
-    //                 t: this.decode(d.slice(18, 8)),
-    //                 err: false
-    //             });
-    //         } else {
-    //             if (n > 1) {
-    //                 this.setTimeout(() => {
-    //                     this.read(cb, --n);
-    //                 }, 500);
-    //             } else {
-    //                 cb({ raw: d, t: -1, rh: -1, err: cks > 0 });
-    //             }
-    //         }
-    //     }, 50);
-    // }
+        /* this.setTimeout(() => {
+                        this.pin.setPull(PinPullMode.PullUp)
+                    }, 1); */
+        this.setTimeout(() => {
+            this.pin.clearWatch(); // delete this.watch;
+            let cks =
+                this.decode(d.slice(2, 8)) +
+                this.decode(d.slice(10, 8)) +
+                this.decode(d.slice(18, 8)) +
+                this.decode(d.slice(26, 8));
+            if (cks && (cks & 0xff) == this.decode(d.slice(34, 8))) {
+                cb({
+                    raw: d,
+                    rh: this.decode(d.slice(2, 8)),
+                    t: this.decode(d.slice(18, 8)),
+                    err: false
+                });
+            } else {
+                if (n > 1) {
+                    this.setTimeout(() => {
+                        this.read(cb, --n);
+                    }, 500);
+                } else {
+                    cb({ raw: d, t: -1, rh: -1, err: cks > 0 });
+                }
+            }
+        }, 50);
+    }
 
     public decode = (omega: number[]) => {
         let max = omega.length;
