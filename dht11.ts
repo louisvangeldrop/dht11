@@ -16,7 +16,7 @@ class DHT11 {
           
           */
 
-    constructor(public pin: DigitalInOutPin) {
+    constructor(public pin: DigitalPin) {
 
     }
 
@@ -39,7 +39,7 @@ class DHT11 {
         let ht = this;
         this.pin.digitalWrite(false);
         pause(18);
-        this.pin.setPull(PinPullMode.PullUp); // force pin state to output
+        this.pin.pin.setPull(PinPullMode.PullUp); // force pin state to output
 
         this.pin.setWatch(
             (t: any) => {
@@ -96,7 +96,7 @@ class DHT11 {
         this.pin.digitalWrite(false);
         pause(18);
         let j = this.pin.digitalRead();
-        this.pin.setPull(PinPullMode.PullUp);
+        this.pin.pin.setPull(PinPullMode.PullUp);
 
         while (this.pin.digitalRead() == true);
         while (this.pin.digitalRead() == false);
