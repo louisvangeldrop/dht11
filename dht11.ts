@@ -95,7 +95,7 @@ class DHT11 {
      * Computes the famous Fibonacci number sequence!
      */
     //% block
-    public temperature(): { tc: number; tf: number; rh: number } {
+    public readTHT(): { tc: number; tf: number; rh: number } {
         this.pin.digitalWrite(false);
         pause(18);
         let j = this.pin.digitalRead();
