@@ -95,13 +95,13 @@ class DHT11 {
      * Computes the famous Fibonacci number sequence!
      */
     //% block
-    public readTHT(): { tc: number; tf: number; rh: number } {
+    public temperature(): { tc: number; tf: number; rh: number } {
         this.pin.digitalWrite(false);
         pause(18);
         let j = this.pin.digitalRead();
         this.pin.pin.setPull(PinPullMode.PullUp);
-
-        while (this.pin.digitalRead() == true);
+        control.delayMicroseconds(40)
+        // while (this.pin.digitalRead() == true);
         while (this.pin.digitalRead() == false);
         while (this.pin.digitalRead() == true);
 
